@@ -7,11 +7,18 @@ public class BusTest {
 
     private Person person;
     private Bus bus;
+    private BusStop busStop;
 
     @Before
     public void setUp(){
         bus = new Bus("Millwall", 4);
         person = new Person();
+        busStop = new BusStop("Stockbridge");
+        busStop.addPerson(person);
+        busStop.addPerson(person);
+        busStop.addPerson(person);
+        busStop.addPerson(person);
+        busStop.addPerson(person);
     }
 
     @Test
@@ -21,24 +28,25 @@ public class BusTest {
 
     @Test
     public void canAddPassenger(){
-        bus.addPassenger(person);
+        bus.addPassengerFromBusStop(busStop);
         assertEquals(1, bus.passengerCount());
+
     }
 
     @Test
     public void cannotAddPassengerIfAboveCapacity() {
-        bus.addPassenger(person);
-        bus.addPassenger(person);
-        bus.addPassenger(person);
-        bus.addPassenger(person);
+        bus.addPassengerFromBusStop(busStop);
+        bus.addPassengerFromBusStop(busStop);
+        bus.addPassengerFromBusStop(busStop);
+        bus.addPassengerFromBusStop(busStop);
         assertEquals(4, bus.passengerCount());
-        bus.addPassenger(person);
+        bus.addPassengerFromBusStop(busStop);
         assertEquals(4, bus.passengerCount());
     }
 
     @Test
     public void canRemovePassenger() {
-        bus.addPassenger(person);
+        bus.addPassengerFromBusStop(busStop);
         assertEquals(1, bus.passengerCount());
         bus.removePassenger();
         assertEquals(0, bus.passengerCount());
